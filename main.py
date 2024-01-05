@@ -1,5 +1,6 @@
 import animeworld as a
 import color as c
+import colorify as cc
 import mpv
 
 
@@ -30,7 +31,7 @@ def play(anime_data, ep_index):
 
 		print('')
 		ep_index += 1;
-		if ep_index >= int(anime_data['eps_n']):
+		if ep_index >= anime_data['eps_n']:
 			print(c.BOLD + c.CGREEN2 + '=> fine serie' + c.RESET);
 			break;
 
@@ -45,6 +46,9 @@ def play(anime_data, ep_index):
 
 
 def main():
+
+	cc.ascii_font();
+
 	# input anime name
 	anime_list = []
 	while len(anime_list) == 0:
@@ -109,7 +113,7 @@ def main():
 		ep_index = input(
       c.BOLD + c.CRED + "=> " +
       c.RESET + c.BOLD + 
-			'scegli num episodio [1 ... ' + anime_data['eps_n'] + ']:  ' +
+			'scegli num episodio [1 ... ' + str(anime_data['eps_n']) + ']:  ' +
       c.RESET
     )
 
@@ -119,7 +123,7 @@ def main():
 		try:
 			ep_index = int(ep_index);
 			
-			if ep_index > int(anime_data['eps_n']) or ep_index <= 0:
+			if ep_index > anime_data['eps_n'] or ep_index <= 0:
 				print("=> ERROR: inserisci un valore valido\n");
 			else:
 				break;

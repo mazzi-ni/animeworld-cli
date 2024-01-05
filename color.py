@@ -40,4 +40,3 @@ CBEIGEBG2  = '\33[106m'
 CWHITEBG2  = '\33[107m'
 RESET = '\033[0m'
 BOLD='\033[01m'
-

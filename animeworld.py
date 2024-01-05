@@ -19,7 +19,7 @@ class Anime:
 			if 'name' in str(link.get('class')):
 				anime_list.append(link.get('href'));
 
-		# last 6*3 + 6 remain because are extra
+		# last 6*3 + 6 remain because are that anime in the bottom
 		anime_list = anime_list[:-24]
 		
 		# DEBUG:
@@ -43,33 +43,32 @@ class Anime:
 		# DEBUG:
 		# print(anime_metadata)
 		
-		# TODO: take only server active !!
-
+		# TODO: sistemare le ridondanze in questo codice ↓
+		
+		eps = []
+		for div in soup.find_all('div'):
+			if 'server active' in str(div):
+				eps = div.find_all('a');
+		
 		episode_id = []
-		for ep in soup.find_all('a'):
-			if str(link) in str(ep.get('href')):
-				episode_id.append(ep.get('data-id'));
-		
-		# DEBUG:
-		print(episode_id)
-		
-		if int(anime_metadata['Episodi']) == 1:
-			episode_id = episode_id[- int(anime_metadata['Episodi']) : ];
-		else:
-			episode_id = episode_id[- int(anime_metadata['Episodi']) - 1 : ];
-		
+		for e in eps:
+			episode_id.append(e.get('data-id'));
+
 		# DEBUG:
 		# print(episode_id)
 		# print(len(episode_id))
 
 		self.anime_data = {
 				"eps_id" : episode_id,
-				"eps_n" : anime_metadata['Episodi'],
+				"eps_n" : len(episode_id), #anime_metadata['Episodi'],
 				"stagione" : anime_metadata['Stagione'],
 				"data_uscita" : anime_metadata['DatadiUscita'],
 				"eps_durata" : anime_metadata['Durata'],
 				"Audio" : anime_metadata['Audio']
 			}
+
+		# DEBUG:
+		# print(self.anime_data);
 
 		return self.anime_data;
 
