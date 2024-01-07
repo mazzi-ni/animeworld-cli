@@ -11,7 +11,7 @@ def ascii_font():
 	
 	# --------------- open font file and get array font -------------------------------
 
-	file = open('/home/mazzi/Documents/project/python-project/animeworld/font.txt', 'r')
+	file = open('/home/mazzi/Documents/project/python-project/animeworld_v2/font.txt', 'r')
 	array_row = file.readlines()
 	fonts = []
 	font = ''
