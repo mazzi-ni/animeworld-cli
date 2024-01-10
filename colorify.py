@@ -1,6 +1,5 @@
 from os import system, name
 import sys
-# from alive_progress import alive_bar
 import random as r
 import color as c
 import time
@@ -54,7 +53,7 @@ def progress_bar(value, duration_min):
 	
 	print(
 		'   ' + prefix_bar + empty_bar + 
-		'  Sec: ' + "{:.2f}".format(value), 
+		'  Perc: ' + "{:.2f}".format(int(value) * 100 / duration_tot) + "%", 
 		end='\r'
 	);
 
