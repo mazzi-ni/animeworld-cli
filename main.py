@@ -3,7 +3,6 @@ import color as c
 import colorify as cc
 import mpv
 
-
 def play(anime_data, ep_index):
 	base_url = 'https://www.animeworld.tv/api/episode/serverPlayerAnimeWorld?id='
 	
