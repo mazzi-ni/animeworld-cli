@@ -57,6 +57,26 @@ class Anime:
 		# DEBUG:
 		# print(episode_id)
 		# print(len(episode_id))
+		
+		# convert anime duration in int
+		if 'he' in anime_metadata['Durata'] and 'min' in anime_metadata['Durata']:
+			h_and_min = anime_metadata['Durata'].split('he', 1);
+			try:
+				min = int(h_and_min[1].replace('min',''));
+				h = int(h_and_min[0]);
+				anime_metadata['Durata'] = h * 60 + min;
+			except:
+				anime_metadata['Durata'] = 0;
+
+		elif 'min/ep' in anime_metadata['Durata']:
+			anime_metadata['Durata'] = anime_metadata['Durata'].replace('min/ep', '');
+			try:
+				anime_metadata['Durata'] = int(anime_metadata['Durata'])
+			except:
+				anime_metadata['Durata'] = 0;
+
+		else:
+			anime_metadata['Durata'] = 0;
 
 		self.anime_data = {
 				"eps_id" : episode_id,

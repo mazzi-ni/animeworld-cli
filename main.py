@@ -10,6 +10,8 @@ def play(anime_data, ep_index):
 	while True:
 		print('\n' + c.BOLD + c.CGREEN2 + '=> ep: ' + str(ep_index + 1) + c.RESET)
 		print('=> url: ' + base_url + anime_data['eps_id'][ep_index]);
+		
+		cc.hide_cursor();
 
 		player = mpv.MPV(
 			input_default_bindings=True,
@@ -20,23 +22,32 @@ def play(anime_data, ep_index):
 		player['vo'] = 'gpu';
 		player.fullscreen = False;
 		
+		@player.property_observer('time-pos')
+		def time_observer(_name, value):
+			if value != None:
+				# print('Now playing at ' + str(value) + 's', end='\r')
+				cc.progress_bar(value, anime_data['eps_durata']);
+				
+
 		try:
 			player.play(base_url + anime_data['eps_id'][ep_index]);
 			player.wait_for_playback();
-		except:
+		except Exception as err:
 			print('\n=> ERROR: esercuzione interrotta');
+			print(err);
 
 		player.terminate();
 		del player;
 
 		print('')
+		cc.show_cursor();
 		ep_index += 1;
 		if ep_index >= anime_data['eps_n']:
 			print(c.BOLD + c.CGREEN2 + '=> fine serie' + c.RESET);
 			break;
-
+		
 		retry = input(
-      c.BOLD + c.CRED + "=> " +
+      c.BOLD + c.CRED + "\n=> " +
       c.RESET + c.BOLD + "next ep ?? " +
       c.RESET
     );

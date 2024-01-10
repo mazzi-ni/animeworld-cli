@@ -6,7 +6,7 @@
 
 
 
-![](/home/mazzi/Documents/project/python-project/animeworld_v2/image/image.png)
+![](image/image.png)
 
 
 
