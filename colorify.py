@@ -4,6 +4,10 @@ import random as r
 import color as c
 import time
 
+# TODO:
+# Esempio barra
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━ 11.9/18.3 MB 1.1 MB/s eta 0:00:06'
+
 def ascii_font():
 	if name == 'nt':
 		_ = system('cls')
@@ -54,27 +58,7 @@ def progress_bar(value, duration_min):
 	print(
 		'   ' + prefix_bar + empty_bar + 
 		'  Perc: ' + "{:.2f}".format(int(value) * 100 / duration_tot) + "%", 
-		end='\r'
+		end='\r',
+		flush = True
 	);
 
-def hide_cursor():
-  if name == 'nt':
-    ci = _CursorInfo()
-    handle = ctypes.windll.kernel32.GetStdHandle(-11)
-    ctypes.windll.kernel32.GetConsoleCursorInfo(handle, ctypes.byref(ci))
-    ci.visible = False
-    ctypes.windll.kernel32.SetConsoleCursorInfo(handle, ctypes.byref(ci))
-  elif name == 'posix':
-    sys.stdout.write("\033[?25l")
-    sys.stdout.flush()
-
-def show_cursor():
-  if name == 'nt':
-    ci = _CursorInfo()
-    handle = ctypes.windll.kernel32.GetStdHandle(-11)
-    ctypes.windll.kernel32.GetConsoleCursorInfo(handle, ctypes.byref(ci))
-    ci.visible = True
-    ctypes.windll.kernel32.SetConsoleCursorInfo(handle, ctypes.byref(ci))
-  elif name == 'posix':
-    sys.stdout.write("\033[?25h")
-    sys.stdout.flush()

@@ -1,16 +1,20 @@
 from bs4 import BeautifulSoup
+from os import name, path, makedirs
+from yaspin import yaspin
+import colorify as cc
 import requests
 import sys
 
 class Anime:
 	BASE_URL = 'https://www.animeworld.so'
+	BASE_API_URL = 'https://www.animeworld.so/api/episode/serverPlayerAnimeWorld?id='
 
-	def __init__(self, name):
-		self.name = name;
+	def __init__(self):
+		self.name = '';
 		self.anime_data = {}
 	
-	def search(self):
-		url = self.BASE_URL + '/search?keyword=' + self.name.replace(' ', '+');
+	def search(self, name):
+		url = self.BASE_URL + '/search?keyword=' + name.replace(' ', '+');
 		page = requests.get(url);
 		soup = BeautifulSoup(page.content, 'html.parser');
 		
@@ -21,7 +25,7 @@ class Anime:
 
 		# last 6*3 + 6 remain because are that anime in the bottom
 		anime_list = anime_list[:-24]
-		
+		self.name = name;
 		# DEBUG:
 		# print(anime_list);
 		# print(len(anime_list));
@@ -29,7 +33,11 @@ class Anime:
 		return anime_list;
 
 	def anime_page(self, link):
-		page = requests.get(self.BASE_URL + link);
+		url = link
+		if not(self.BASE_URL in link):
+			url = self.BASE_URL + link
+
+		page = requests.get(url);
 		soup = BeautifulSoup(page.content, 'html.parser');
 		
 		anime_metadata = {}
@@ -41,7 +49,7 @@ class Anime:
 				anime_metadata.update({t:v});
 		
 		# DEBUG:
-		# print(anime_metadata)
+		# print(bool(anime_metadata))
 		
 		# TODO: sistemare le ridondanze in questo codice ↓
 		
@@ -57,6 +65,9 @@ class Anime:
 		# DEBUG:
 		# print(episode_id)
 		# print(len(episode_id))
+		
+		if not(bool(anime_metadata)):
+			raise ValueError('url not correct')
 		
 		# convert anime duration in int
 		if 'he' in anime_metadata['Durata'] and 'min' in anime_metadata['Durata']:
@@ -91,5 +102,62 @@ class Anime:
 		# print(self.anime_data);
 
 		return self.anime_data;
+
+	def video_page(self, id):
+		page = requests.get(self.BASE_API_URL + id);
+		soup = BeautifulSoup(page.content, 'html.parser');
+
+		source = soup.find('source').get('src');
+		
+		# DEBUG:
+		# print(source);
+
+		if source == None:
+			print('=> Err id non valido');
+			return 'nope';
+		
+		return source;
+
+	def dowload_anime(self, link):
+		home = path.expanduser('~/Videos');
+		source_url = link.split('/');
+		file_name = path.join(home, source_url[-2], source_url[-1]);
+		
+		if not path.exists(path.dirname(file_name)):
+			try:
+				makedirs(path.dirname(file_name))
+			except OSError as exc: # Guard against race condition
+				if exc.errno != errno.EEXIST:
+					raise
+
+		# DEBUG:
+		# print(source_url)
+		# print(file_name)
+		
+		
+
+		with open(file_name, "wb") as f:
+			# print("=> Downloading " + source_url[-1])
+			# spinner = yaspin(text=" Downloading "+source_url[-1])
+			# spinner.start()
+			response = requests.get(link, stream=True)
+			total_length = response.headers.get('content-length')
+
+			# DEBUG:
+			# print(total_length);
+
+			if total_length is None:
+				f.write(response.content)
+			else:
+				dl = 0
+				total_length = int(total_length)
+					
+				for data in response.iter_content(chunk_size=4096):
+					dl += len(data)
+					f.write(data)
+			
+		
+			# spinner.ok("✅ ")
+			# spinner.stop()
 
 
