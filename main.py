@@ -19,7 +19,7 @@ anime = Anime()
 @app.command()
 def search(anime_name: str):
 	"""
-	Search an Anime in Animeworld.tv
+	Search and play an Anime in Animeworld.tv
 	"""
 
 	anime_list = anime.search(anime_name)
@@ -39,7 +39,7 @@ def search(anime_name: str):
 @app.command()
 def play(url: Annotated[str, typer.Option()]):
 	"""
-	Play an Anime from Animeworld.tv with mpv
+	Play an Anime from Animeworld.tv url with mpv
 	"""
 	anime_data = anime.anime_page(url);
 	
