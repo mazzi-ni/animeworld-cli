@@ -134,12 +134,7 @@ class Anime:
 		# print(source_url)
 		# print(file_name)
 		
-		
-
 		with open(file_name, "wb") as f:
-			# print("=> Downloading " + source_url[-1])
-			# spinner = yaspin(text=" Downloading "+source_url[-1])
-			# spinner.start()
 			response = requests.get(link, stream=True)
 			total_length = response.headers.get('content-length')
 
@@ -155,9 +150,5 @@ class Anime:
 				for data in response.iter_content(chunk_size=4096):
 					dl += len(data)
 					f.write(data)
-			
-		
-			# spinner.ok("✅ ")
-			# spinner.stop()
 
 

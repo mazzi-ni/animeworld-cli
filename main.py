@@ -1,12 +1,12 @@
+#!/usr/bin/env python
+
 from typing_extensions import Annotated
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from yaspin import yaspin
 import questionary as q
 import typer
 import mpv 
-import time
 import requests
-import os
 
 from animeworld import Anime
 import color as c
@@ -41,13 +41,6 @@ def play(url: Annotated[str, typer.Option()]):
 	"""
 	Play an Anime from Animeworld.tv with mpv
 	"""
-
-	#if requests.get(url).status_code != 200:
-	#	print('=> Errore link non valido\n');
-	#	# time.sleep(1);
-	#	return ''
-	#	#return main(input)
-
 	anime_data = anime.anime_page(url);
 	
 	def validate(ep):
@@ -247,7 +240,6 @@ def main(ctx: typer.Context):
 
 if __name__ == '__main__':
 	try:
-		os.environ["TQDM_DISABLE"] = "True"
 		app()
 	except KeyboardInterrupt:
 		print("=> Cancelled by user")

@@ -21,6 +21,15 @@ pip install -r requirements.txt
 ```
 
 
+---
+
+### Usage:
+
+
+```bash
+chmod +x main.py
+./main.py
+```
 
 
 
