@@ -114,10 +114,16 @@ def ascii():
 	cc.ascii_font();
 
 @app.command()
-def download(name: Annotated[str, typer.Option()] = None, multi_thread: Annotated[bool, typer.Option()] = False):
+def download(
+		name: Annotated[str, typer.Option()] = None, 
+		multi_thread: Annotated[bool, typer.Option()] = False, 
+		ascii: Annotated[bool, typer.Option()] = False):
 	"""
 	Download an Anime from Animeworld.tv
 	"""
+	if ascii:
+		cc.ascii_font()
+
 	anime_list = []
 	if name == None:
 		while len(anime_list) == 0:
@@ -212,6 +218,7 @@ def multithread_download(range_ep_id):
 
 			except KeyboardInterrupt:
 				executor._threads.clear()
+				raise typer.Exit()
 
 	
 @app.callback(invoke_without_command=True)
