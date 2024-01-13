@@ -37,17 +37,17 @@ pip install pyinstaller && pyinstaller -F main.py -n animeworld
 ```bash
 $ ./main.py --help
 
- Usage: main.py [OPTIONS] COMMAND [ARGS]...                                                                                 
-                                                                                                                            
-╭─ Options ───────────────────────────────────────────────────────────────────────────────────╮
-│ --help                        Show this message and exit.                                   │
-╰─────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ──────────────────────────────────────────────────────────────────────────────────╮
-│ ascii                  Print Ascii font from font.txt                                       │
-│ download               Download an Anime from Animeworld.tv                                 │
-│ play                   Play an Anime from Animeworld.tv url with mpv                        │
-│ search                 Search and play an Anime in Animeworld.tv                            │
-╰─────────────────────────────────────────────────────────────────────────────────────────────╯
+ Usage: main.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────────────────────────────────────────────╮
+│ --help                        Show this message and exit.                            │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────╮
+│ ascii                  Print Ascii font from font.txt                                │
+│ download               Download an Anime from Animeworld.tv                          │
+│ play                   Play an Anime from Animeworld.tv url with mpv                 │
+│ search                 Search and play an Anime in Animeworld.tv                     │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 
 ```
