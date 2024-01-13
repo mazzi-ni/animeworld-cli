@@ -22,7 +22,12 @@ pip install -r requirements.txt
 chmod +x main.py
 ./main.py
 ```
+opppure se si vuole un eseguibile compilato:
 
+```bash
+pip install pyinstaller && pyinstaller -F main.py animeworld
+./dist/animeworld
+```
 
 ---
 

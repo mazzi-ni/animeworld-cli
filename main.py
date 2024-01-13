@@ -176,7 +176,6 @@ def download(
 	
 	ep_range = list(map(int, ep_range.split('-')))
 	ep_range[0] = ep_range[0] - 1
-	# ep_range[1] = ep_range[1] - 1
 	range_ep_id = anime.anime_data['eps_id'][ep_range[0]:ep_range[1]]
 	
 	# DEBUG:
