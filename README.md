@@ -25,7 +25,7 @@ chmod +x main.py
 opppure se si vuole un eseguibile compilato:
 
 ```bash
-pip install pyinstaller && pyinstaller -F main.py animeworld
+pip install pyinstaller && pyinstaller -F main.py -n animeworld
 ./dist/animeworld
 ```
 
