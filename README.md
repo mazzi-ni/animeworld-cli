@@ -1,6 +1,5 @@
 # AnimeWorld-Cli
 
----
 
 > *script in python per navigare animeworld.tv da terminale e guradare anime con mpv*
 
