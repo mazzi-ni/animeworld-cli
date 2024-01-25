@@ -37,17 +37,24 @@ def ascii_font():
 	print('\n' + color + fonts[index] + c.RESET + '\n');
 
 def progress_bar(value, duration_min):
-	prefix = c.BOLD + c.CGREEN + '-' + c.RESET;
-	non_prefix = c.BOLD + c.CRED + '-' + c.RESET;
-	
+	color_prefix = c.BOLD + c.CRED;
+	colot_non_prefix = c.BOLD + c.CBLACK;
+	char = '-'
+
 	length = 60;
 	duration_tot = duration_min * 60;
 	perc = int((int(value) * length) / duration_tot);
 	
-	# print(perc, end='\r');
+	if perc >= length:
+		perc = length;
+		color_prefix = c.BOLD + c.CGREEN;
+	
+	prefix = color_prefix + char + c.RESET;
+	non_prefix = colot_non_prefix + char + c.RESET;
 	
 	prefix_bar = '';
 	empty_bar = '';
+	# middle_bar = color_non_prefix + '╺' + c.RESET;
 	
 	for i in range(0, perc):
 		prefix_bar += prefix;

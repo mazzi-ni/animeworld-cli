@@ -15,6 +15,10 @@ class Anime:
 	
 	def search(self, name):
 		url = self.BASE_URL + '/search?keyword=' + name.replace(' ', '+');
+		
+		if name == 'ongoing':
+			url = self.BASE_URL + '/' + name;
+
 		page = requests.get(url);
 		soup = BeautifulSoup(page.content, 'html.parser');
 		

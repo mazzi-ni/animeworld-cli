@@ -2,6 +2,7 @@
 
 from typing_extensions import Annotated
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from alive_progress import alive_bar, alive_it
 from yaspin import yaspin
 import questionary as q
 import typer
@@ -67,8 +68,8 @@ def play(url: Annotated[str, typer.Option()]):
 
 def play_id(ep_index):
 	while True:
-		print('\n' + c.BOLD + c.CGREEN2 + '=> episode: ' + str(ep_index + 1) + c.RESET)
-		print('=> url: ' + anime.BASE_API_URL + anime.anime_data['eps_id'][ep_index]);
+		print('\n' + c.BOLD + c.CGREEN2 + ' » episode: ' + str(ep_index + 1) + c.RESET)
+		print(' » url: ' + anime.BASE_API_URL + anime.anime_data['eps_id'][ep_index]);
 		
 		player = mpv.MPV(
 			input_default_bindings=True,
@@ -82,6 +83,7 @@ def play_id(ep_index):
 		@player.property_observer('time-pos')
 		def time_observer(_name, value):
 			if value != None:
+				# alive_it(value)
 				# print('Now playing at ' + str(value) + 's', end='\r')
 				cc.progress_bar(value, anime.anime_data['eps_durata']);
 
@@ -98,13 +100,19 @@ def play_id(ep_index):
 		print('')
 		ep_index += 1;
 		if ep_index >= anime.anime_data['eps_n']:
-			print(c.BOLD + c.CGREEN2 + '=> fine serie' + c.RESET);
+			print(c.BOLD + c.CGREEN2 + ' » fine serie' + c.RESET);
 			break;
 		
 		retry = q.confirm('Next Episode: ').ask()
 
 		if not(retry):
 			break;
+
+@app.command()
+def recent():
+	search('ongoing');
+
+
 
 @app.command()
 def ascii():
