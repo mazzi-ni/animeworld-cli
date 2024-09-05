@@ -14,7 +14,7 @@
 
 ### Installazione:
 
-Per poter installare lo script serve installare [``mpv``](https://mpv.io/) e altri moduli con pip:
+Per poter installare lo script serve installare [``mpv``](https://mpv.io/), [``libmpv``](https://packages.fedoraproject.org/pkgs/mpv/mpv-libs/index.html) e altri moduli con pip:
 
 ```bash
 pip install -r requirements.txt
@@ -24,7 +24,7 @@ chmod +x main.py
 opppure se si vuole un eseguibile compilato:
 
 ```bash
-pip install pyinstaller && pyinstaller -F main.py -n animeworld
+pip install pyinstaller && pyinstaller -F main.py -n animeworld --add-data='libs/fonts/font.txt:libs/fonts' 
 ./dist/animeworld
 ```
 

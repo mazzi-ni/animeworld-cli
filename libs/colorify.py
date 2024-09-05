@@ -1,8 +1,8 @@
-from os import system, name
-import sys
+from os import system, name, path
 import random as r
-import color as c
+import libs.color as c
 import time
+import sys
 
 # TODO:
 # Esempio barra
@@ -16,7 +16,8 @@ def ascii_font():
 	
 	# --------------- open font file and get array font -------------------------------
 
-	file = open('/home/mazzi/Documents/project/python-project/animeworld_v2/font.txt', 'r')
+	# file = open('/home/mazzi/Documents/project/python-project/animeworld_v2/font.txt', 'r')
+	file = open(path.join(path.dirname(__file__), 'fonts/font.txt'), 'r')
 	array_row = file.readlines()
 	fonts = []
 	font = ''
@@ -37,8 +38,8 @@ def ascii_font():
 	print('\n' + color + fonts[index] + c.RESET + '\n');
 
 def progress_bar(value, duration_min):
-	color_prefix = c.BOLD + c.CRED;
-	colot_non_prefix = c.BOLD + c.CBLACK;
+	color_prefix = c.BOLD + c.CGREEN;
+	colot_non_prefix = c.BOLD + c.CRED;
 	char = '-'
 
 	length = 60;

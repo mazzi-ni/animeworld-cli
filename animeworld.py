@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from os import name, path, makedirs
 from yaspin import yaspin
-import colorify as cc
+import libs.colorify as cc
 import requests
 import sys
 

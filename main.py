@@ -10,8 +10,8 @@ import mpv
 import requests
 
 from animeworld import Anime
-import color as c
-import colorify as cc
+import libs.color as c
+import libs.colorify as cc
 
 
 app = typer.Typer()
