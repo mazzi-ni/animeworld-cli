@@ -35,7 +35,7 @@ def search(anime_name: str):
 	# DEBUG:
 	# print(anime_list[anime_list_option.index(select)])
 
-	play(anime_list[anime_list_option.index(select)])
+	return play(anime_list[anime_list_option.index(select)])
 
 @app.command()
 def play(url: Annotated[str, typer.Option()]):
