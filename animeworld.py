@@ -15,9 +15,9 @@ class Anime:
     def get_cookie(self, url):
         page = self.session.get(url)
 
-        cookie_match = re.search(r'SecurityAW-gl=[a-f0-9]{32}', str(page.content));
+        cookie_match = re.search(r'SecurityAW-E4=[a-f0-9]{32}', str(page.content));
         if cookie_match:
-            self.session.cookies.set("SecurityAW-gl", cookie_match.group().split('=')[1])
+            self.session.cookies.set("SecurityAW-E4", cookie_match.group().split('=')[1])
             return cookie_match.group();
 
         return "";
@@ -38,7 +38,7 @@ class Anime:
         soup = self.get_soup(url);
         if soup == None:
             return;
-
+        
         anime_list = []
         for link in soup.find_all("a"):
             if "name" in str(link.get("class")):

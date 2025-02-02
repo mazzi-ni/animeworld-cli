@@ -5,4 +5,4 @@ dist/
 *.spec
 main.old.py
 
-
+install.sh
