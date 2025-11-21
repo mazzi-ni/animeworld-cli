@@ -70,7 +70,7 @@ def play_id(ep_index):
     while True:
         print("\n" + c.BOLD + c.CGREEN2 + " » episode: " + str(ep_index + 1) + c.RESET)
         print(" » url: " + anime.BASE_API_URL + anime.anime_data["eps_id"][ep_index])
-
+    
         player = mpv.MPV(
             input_default_bindings=True, 
             input_vo_keyboard=True, 
@@ -93,7 +93,7 @@ def play_id(ep_index):
             player.play(url)
             player.wait_for_playback()
         except Exception as err:
-            print("\n=> ERROR: esercuzione interrotta")
+            print("\n» ERROR: esercuzione interrotta")
             print(err)
 
         player.terminate()

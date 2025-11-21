@@ -97,6 +97,7 @@ class Anime:
             raise ValueError("url not correct")
 
         # convert anime duration in int
+        default_ep_duration = 24;
         if "he" in anime_metadata["Durata"] and "min" in anime_metadata["Durata"]:
             h_and_min = anime_metadata["Durata"].split("he", 1)
             try:
@@ -104,17 +105,17 @@ class Anime:
                 h = int(h_and_min[0])
                 anime_metadata["Durata"] = h * 60 + min
             except:
-                anime_metadata["Durata"] = 0
+                anime_metadata["Durata"] = default_ep_duration
 
         elif "min/ep" in anime_metadata["Durata"]:
             anime_metadata["Durata"] = anime_metadata["Durata"].replace("min/ep", "")
             try:
                 anime_metadata["Durata"] = int(anime_metadata["Durata"])
             except:
-                anime_metadata["Durata"] = 0
+                anime_metadata["Durata"] = default_ep_duration
 
         else:
-            anime_metadata["Durata"] = 0
+            anime_metadata["Durata"] = default_ep_duration
 
         self.anime_data = {
             "eps_id": episode_id,
