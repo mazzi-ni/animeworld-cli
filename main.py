@@ -8,12 +8,14 @@ import typer
 import mpv
 
 from animeworld import Anime
+from history import History
 import libs.color as c
 import libs.colorify as cc
 
 
 app = typer.Typer()
 anime = Anime()
+history = History()
 
 
 @app.command()
@@ -65,12 +67,28 @@ def play(url: Annotated[str, typer.Option()]):
 
     play_id(int(ep) - 1)
 
+@app.command()
+def play_history():
+    """
+    Play Anime from history file
+    """
+    
+    anime_data = history.get()
+    anime.anime_data = anime_data
+    ep_index = anime_data['ep_index']
+
+    # DEBUG:
+    # print(anime_data)
+
+    return play_id(ep_index - 1)
+
+
 
 def play_id(ep_index):
     while True:
         print("\n" + c.BOLD + c.CGREEN2 + " » episode: " + str(ep_index + 1) + c.RESET)
         print(" » url: " + anime.BASE_API_URL + anime.anime_data["eps_id"][ep_index])
-    
+        
         player = mpv.MPV(
             input_default_bindings=True, 
             input_vo_keyboard=True, 
@@ -93,6 +111,10 @@ def play_id(ep_index):
             player.play(url)
             player.wait_for_playback()
         except Exception as err:
+            # save history
+            anime.anime_data['ep_index'] = ep_index
+            history.save(anime.anime_data)
+
             print("\n» ERROR: esercuzione interrotta")
             print(err)
 
@@ -108,6 +130,9 @@ def play_id(ep_index):
         retry = q.confirm("Next Episode: ").ask()
 
         if not (retry):
+            # save history
+            anime.anime_data['ep_index'] = ep_index
+            history.save(anime.anime_data)
             break
 
 
